@@ -10,7 +10,8 @@ export default function Player() {
   }
   return (
     <section id="player">
-      <h2>Welcome unknown entity</h2>
+      {/* display a personalized welcome message if 'submitted' is true, otherwise show a default message */}
+      <h2>Welcome {submitted ? playerName : "unknown entity"}</h2>
       <p>
         <input type="text" onChange={handleChange} value={playerName} />
         <button onClick={handleClick}>Set Name</button>
