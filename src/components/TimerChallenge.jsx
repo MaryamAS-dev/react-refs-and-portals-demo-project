@@ -23,7 +23,9 @@ export default function TimerChallenge({ title, targetTime }) {
           {timerStarted ? "Stop" : "Start"} Challenge
         </button>
       </p>
-      <p className=""> Time is running... / Timer inactive</p>
+      <p className={timerStarted ? "active" : ""}>
+        {timerStarted ? "Time is running..." : "Timer inactive"}
+      </p>
     </section>
   );
 }
