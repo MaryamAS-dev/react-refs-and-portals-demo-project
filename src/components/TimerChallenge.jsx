@@ -11,6 +11,8 @@ export default function TimerChallenge({ title, targetTime }) {
   return (
     <section className="challenge">
       <h2>{title}</h2>
+      {/* display a message when the timer has expired, indicating the user has lost */}
+      {timerExpired && <p>You lost!</p>}
       <p className="challenge-time">
         {targetTime} second{targetTime > 1 ? "s" : ""}
       </p>
