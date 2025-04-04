@@ -4,6 +4,8 @@ export default function Player() {
   const [playerName, setPlayerName] = useState(null);
   function handleClick() {
     setPlayerName(inputRef.current.value);
+    // clear the input field by resetting its value to an empty string after setting the playerName
+    inputRef.current.value = "";
   }
   return (
     <section id="player">
