@@ -1,21 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 export default function Player() {
-  const [submitted, setSubmitted] = useState(false);
-  const [playerName, setPlayerName] = useState("");
-  function handleChange(event) {
-    // reset 'submitted' to false each time the player name changes (before it is submitted)
-    setSubmitted(false);
-    setPlayerName(event.target.value);
-  }
+  const inputRef = useRef();
+  const [playerName, setPlayerName] = useState(null);
   function handleClick() {
-    setSubmitted(true);
+    setPlayerName(inputRef.current.value);
   }
   return (
     <section id="player">
-      {/* display a personalized welcome message if 'submitted' is true, otherwise show a default message */}
-      <h2>Welcome {submitted ? playerName : "unknown entity"}</h2>
+      {/* display a personalized welcome message if 'playerName' is not null or undefined, otherwise show a default message using the nullish coalescing operator (??) */}
+      <h2>Welcome {playerName ?? "unknown entity"}</h2>
       <p>
-        <input type="text" onChange={handleChange} value={playerName} />
+        <input ref={inputRef} type="text" />
         <button onClick={handleClick}>Set Name</button>
       </p>
     </section>
