@@ -3,6 +3,8 @@ export default function Player() {
   const [submitted, setSubmitted] = useState(false);
   const [playerName, setPlayerName] = useState("");
   function handleChange(event) {
+    // reset 'submitted' to false each time the player name changes (before it is submitted)
+    setSubmitted(false);
     setPlayerName(event.target.value);
   }
   function handleClick() {
