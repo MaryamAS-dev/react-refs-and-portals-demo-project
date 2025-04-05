@@ -13,7 +13,7 @@ export default function TimerChallenge({ title, targetTime }) {
     // set a timer using setTimeout function
     timerRef.current = setTimeout(() => {
       setTimerExpired(true);
-      dialogRef.current.showModal(); // show the ResultModal dialog when the timer expires
+      dialogRef.current.open(); // call the open() method exposed by useImperativeHandle to display the ResultModal
     }, targetTime * 1000);
 
     setTimerStarted(true);
