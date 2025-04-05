@@ -1,6 +1,7 @@
 export default function ResultModal({ result, targetTime }) {
   return (
-    <dialog className="result-modal">
+    // add the 'open' attribute to the dialog element to make it visible by default
+    <dialog className="result-modal" open>
       <h2>You {result}</h2>
       <p>
         The target time was
