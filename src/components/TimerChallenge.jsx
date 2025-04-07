@@ -8,6 +8,8 @@ export default function TimerChallenge({ title, targetTime }) {
   // create a reference to store the timer ID, which persists across re-renders
   // and doesn't reset when the component re-renders
   const timerRef = useRef();
+  // check if the timer is active (remaining time is greater than 0 and less than the target time)
+  const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
   function handleStart() {
     // replace 'setTimeout' with 'setInterval' to repeatedly measure the remaining time while the timer is running
     timerRef.current = setInterval(() => {
