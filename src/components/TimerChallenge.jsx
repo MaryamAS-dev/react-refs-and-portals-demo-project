@@ -1,26 +1,23 @@
 import { useState, useRef } from "react";
 import ResultModal from "./ResultModal.jsx";
 export default function TimerChallenge({ title, targetTime }) {
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
-  // create a reference for accessing the built-in dialog element inside the ResultModal component
+  // replace 'timerStarted' & 'timerExpired' states with 'timeRemaining' to simplify tracking of the remaining time
+  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
+  // create a reference to access the ResultModal component's methods exposed via useImperativeHandle
   const dialogRef = useRef();
   // create a reference to store the timer ID, which persists across re-renders
   // and doesn't reset when the component re-renders
   const timerRef = useRef();
-  // start a timer that expires after the targetTime in seconds, then set timerExpired to true
   function handleStart() {
-    // set a timer using setTimeout function
-    timerRef.current = setTimeout(() => {
-      setTimerExpired(true);
-      dialogRef.current.open(); // call the open() method exposed by useImperativeHandle to display the ResultModal
-    }, targetTime * 1000);
-
-    setTimerStarted(true);
+    // replace 'setTimeout' with 'setInterval' to repeatedly measure the remaining time while the timer is running
+    timerRef.current = setInterval(() => {
+      // decrease the remaining time by 10 milliseconds on each interval, updating the state accordingly
+      setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 10);
+    }, 10);
   }
-  // stop the timer
+  // clear the interval to stop the timer
   function handleStop() {
-    clearTimeout(timerRef.current);
+    clearInterval(timerRef.current);
   }
   return (
     <>
