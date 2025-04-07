@@ -10,6 +10,12 @@ export default function TimerChallenge({ title, targetTime }) {
   const timerRef = useRef();
   // check if the timer is active (remaining time is greater than 0 and less than the target time)
   const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
+  // timer has expired without being stopped by the user (lost condition)
+  if (timeRemaining <= 0) {
+    clearInterval(timerRef.current); // stop the interval when the timer expires
+    setTimeRemaining(targetTime * 1000); // reset the remaining time state
+    dialogRef.current.open(); // open the ResultModal by calling the open() method exposed via useImperativeHandle
+  }
   function handleStart() {
     // replace 'setTimeout' with 'setInterval' to repeatedly measure the remaining time while the timer is running
     timerRef.current = setInterval(() => {
@@ -17,9 +23,10 @@ export default function TimerChallenge({ title, targetTime }) {
       setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 10);
     }, 10);
   }
-  // clear the interval to stop the timer
+  // stop the timer manually by the user (win condition)
   function handleStop() {
-    clearInterval(timerRef.current);
+    clearInterval(timerRef.current); // stop the interval when the timer is manually stopped
+    dialogRef.current.open(); // open the ResultModal by calling the open() method exposed via useImperativeHandle
   }
   return (
     <>
