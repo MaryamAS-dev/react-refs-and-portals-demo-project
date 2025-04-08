@@ -7,6 +7,8 @@ export default function ResultModal({
 }) {
   const userLost = remainingTime <= 0; // check if the user has run out of time
   const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
+  // calculate the score as a percentage based on remaining time and target time
+  const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
   // use useImperativeHandle to expose ResultModal's APIs (like open) to parent components via ref
   useImperativeHandle(ref, () => {
     return {
@@ -21,6 +23,7 @@ export default function ResultModal({
     <dialog ref={dialogRef} className="result-modal">
       {/* conditionally display a "You lost!" message if the user has lost */}
       {userLost && <h2>You lost!</h2>}
+      {!userLost && <h2>Your Score: {score}</h2>}
       <p>
         The target time was{" "}
         <strong>
