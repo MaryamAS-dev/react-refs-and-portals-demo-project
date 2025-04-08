@@ -20,7 +20,8 @@ export default function ResultModal({
   // create a ref to access the dialog element directly, ensuring it's only used within the ResultModal component
   const dialogRef = useRef();
   return (
-    <dialog ref={dialogRef} className="result-modal">
+    // reset the timeRemaining state when the dialog is closed via the escape key
+    <dialog ref={dialogRef} className="result-modal" onClose={onReset}>
       {/* conditionally display a "You lost!" message if the user has lost */}
       {userLost && <h2>You lost!</h2>}
       {!userLost && <h2>Your Score: {score}</h2>}
