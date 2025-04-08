@@ -1,5 +1,10 @@
 import { useImperativeHandle, useRef } from "react";
-export default function ResultModal({ ref, targetTime, remainingTime }) {
+export default function ResultModal({
+  ref,
+  targetTime,
+  remainingTime,
+  onReset,
+}) {
   const userLost = remainingTime <= 0; // check if the user has run out of time
   const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
   // use useImperativeHandle to expose ResultModal's APIs (like open) to parent components via ref
@@ -26,7 +31,7 @@ export default function ResultModal({ ref, targetTime, remainingTime }) {
         You stopped the timer with{" "}
         <strong>{formattedRemainingTime} seconds left.</strong>
       </p>
-      <form method="dialog">
+      <form method="dialog" onSubmit={onReset}>
         <button>Close</button>
       </form>
     </dialog>

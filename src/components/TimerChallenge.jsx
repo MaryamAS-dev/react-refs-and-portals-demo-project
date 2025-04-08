@@ -13,8 +13,10 @@ export default function TimerChallenge({ title, targetTime }) {
   // timer has expired without being stopped by the user (lost condition)
   if (timeRemaining <= 0) {
     clearInterval(timerRef.current); // stop the interval when the timer expires
-    setTimeRemaining(targetTime * 1000); // reset the remaining time state
     dialogRef.current.open(); // open the ResultModal by calling the open() method exposed via useImperativeHandle
+  }
+  function handleReset() {
+    setTimeRemaining(targetTime * 1000); // reset the timeRemaining state
   }
   function handleStart() {
     // replace 'setTimeout' with 'setInterval' to repeatedly measure the remaining time while the timer is running
@@ -34,6 +36,7 @@ export default function TimerChallenge({ title, targetTime }) {
         ref={dialogRef}
         targetTime={targetTime}
         remainingTime={timeRemaining}
+        onReset={handleReset}
       />
       <section className="challenge">
         <h2>{title}</h2>
