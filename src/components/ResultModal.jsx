@@ -1,5 +1,7 @@
 import { useImperativeHandle, useRef } from "react";
-export default function ResultModal({ ref, result, targetTime }) {
+export default function ResultModal({ ref, targetTime, remainingTime }) {
+  const userLost = remainingTime <= 0; // check if the user has run out of time
+  const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
   // use useImperativeHandle to expose ResultModal's APIs (like open) to parent components via ref
   useImperativeHandle(ref, () => {
     return {
@@ -12,15 +14,17 @@ export default function ResultModal({ ref, result, targetTime }) {
   const dialogRef = useRef();
   return (
     <dialog ref={dialogRef} className="result-modal">
-      <h2>You {result}</h2>
+      {/* conditionally display a "You lost!" message if the user has lost */}
+      {userLost && <h2>You lost!</h2>}
       <p>
-        The target time was
+        The target time was{" "}
         <strong>
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </strong>
       </p>
       <p>
-        You stopped the timer with <strong>X seconds left.</strong>
+        You stopped the timer with{" "}
+        <strong>{formattedRemainingTime} seconds left.</strong>
       </p>
       <form method="dialog">
         <button>Close</button>
